@@ -780,6 +780,43 @@ a {
     text-transform: uppercase;
 }
 
+/* Scroll to Top */
+.scroll-to-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: var(--transition-base);
+    z-index: 999;
+    box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+    background: var(--primary-hover);
+    transform: translateY(-4px);
+}
+
+.scroll-to-top .material-icons {
+    font-size: 24px;
+    color: #fff;
+}
+
 /* Animations */
 @keyframes fadeInUp {
     from {

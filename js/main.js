@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Add micro-interactions to cards
     initCardInteractions();
+    
+    // Initialize Scroll to Top button
+    initScrollToTop();
 });
 
 /**
@@ -62,4 +65,24 @@ function initCardInteractions() {
             card.style.transform = 'perspective(1000px) translateY(0) rotateX(0) rotateY(0)';
         });
     });
+}
+
+function initScrollToTop() {
+    const scrollBtn = document.getElementById('scroll-to-top');
+    if (!scrollBtn) return;
+    
+    const toggleVisibility = () => {
+        if (window.scrollY > 300) {
+            scrollBtn.classList.add('visible');
+        } else {
+            scrollBtn.classList.remove('visible');
+        }
+    };
+    
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
+    toggleVisibility();
 }
