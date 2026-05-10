@@ -519,11 +519,14 @@ a {
     border-bottom: 1px solid var(--border-color);
 }
 
-.module-header.phase-1 { background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; }
-.module-header.phase-2 { background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; }
-.module-header.phase-3 { background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; }
-.module-header.phase-4 { background: rgba(251, 146, 60, 0.1); border-left: 4px solid #fb923c; }
-.module-header.phase-5 { background: rgba(239, 68, 68, 0.1); border-left: 4px solid var(--primary); }
+.module-header.phase-1, .module-header.module-0 { background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; }
+.module-header.phase-2, .module-header.module-1 { background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; }
+.module-header.phase-3, .module-header.module-2 { background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; }
+.module-header.phase-4, .module-header.module-3 { background: rgba(251, 146, 60, 0.1); border-left: 4px solid #fb923c; }
+.module-header.module-4 { background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; }
+.module-header.module-5 { background: rgba(6, 182, 212, 0.1); border-left: 4px solid #06b6d4; }
+.module-header.module-6 { background: rgba(234, 179, 8, 0.1); border-left: 4px solid #eab308; }
+.module-header.phase-5, .module-header.module-7 { background: rgba(239, 68, 68, 0.1); border-left: 4px solid var(--primary); }
 
 .module-badge {
     font-size: 0.75rem;
