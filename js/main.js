@@ -86,3 +86,34 @@ function initScrollToTop() {
     window.addEventListener('scroll', toggleVisibility, { passive: true });
     toggleVisibility();
 }
+
+/**
+ * Toast System
+ */
+window.showToast = function(message, type = 'info') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    
+    let icon = 'info';
+    if (type === 'success') icon = 'check_circle';
+    if (type === 'error') icon = 'error';
+    
+    toast.innerHTML = `
+        <span class="material-icons toast-icon">${icon}</span>
+        <span class="toast-message">${message}</span>
+    `;
+    
+    container.appendChild(toast);
+    
+    // Animate in
+    setTimeout(() => toast.classList.add('visible'), 10);
+    
+    // Remove after 4s
+    setTimeout(() => {
+        toast.classList.remove('visible');
+        setTimeout(() => toast.remove(), 400);
+    }, 4000);
+};
