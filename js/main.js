@@ -1,5 +1,5 @@
 /**
- * FORMATION IA FULLSTACK BUILDER - KEVY
+ * Formation AI FULLSTACK BUILDER - KEVY
  * Logic & Animations
  */
 
