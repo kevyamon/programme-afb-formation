@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portail d'Acces - AI Fullstack Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        /* ========================================
+           Design System - Variables exclusives
+           ======================================== */
+        :root {
+            --portal-bg: #020617;
+            --portal-surface: rgba(15, 23, 42, 0.7);
+            --portal-surface-solid: #0f172a;
+            --portal-primary: #ef4444;
+            --portal-primary-hover: #dc2626;
+            --portal-primary-glow: rgba(239, 68, 68, 0.15);
+            --portal-primary-subtle: rgba(239, 68, 68, 0.08);
+            --portal-text-main: #f8fafc;
+            --portal-text-muted: #94a3b8;
+            --portal-text-dim: #64748b;
+            --portal-border: rgba(30, 41, 59, 0.6);
+            --portal-border-hover: rgba(239, 68, 68, 0.4);
+            --portal-danger: #ef4444;
+            --portal-danger-bg: rgba(239, 68, 68, 0.1);
+            --portal-success: #22c55e;
+            --portal-success-bg: rgba(34, 197, 94, 0.1);
+            --portal-radius-lg: 20px;
+            --portal-radius-md: 12px;
+            --portal-radius-sm: 8px;
+            --portal-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --portal-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.6);
+            --portal-glow-shadow: 0 0 80px rgba(239, 68, 68, 0.08);
+        }
+
+        /* ========================================
+           Reset & Base
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--portal-bg);
+            color: var(--portal-text-main);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Ambient background glow */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 30%, var(--portal-primary-glow) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, var(--portal-primary-glow) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ========================================
+           Portal Container
+           ======================================== */
+        .portal-container {
+            position: relative;
+            z-index: 1;
+            background: var(--portal-surface);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--portal-border);
+            border-radius: var(--portal-radius-lg);
+            padding: 48px 40px 40px;
+            max-width: 520px;
+            width: 92%;
+            box-shadow: var(--portal-shadow), var(--portal-glow-shadow);
+            animation: containerReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes containerReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========================================
+           Logo
+           ======================================== */
+        .portal-logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 28px;
+        }
+
+        .portal-logo img {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            border-radius: var(--portal-radius-md);
+            border: 1px solid var(--portal-border);
+            padding: 8px;
+            background: var(--portal-surface-solid);
+        }
+
+        /* ========================================
+           Header
+           ======================================== */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--portal-border);
+            padding-bottom: 24px;
+        }
+
+        .header-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--portal-primary);
+            background: var(--portal-primary-subtle);
+            border: 1px solid var(--portal-border-hover);
+            padding: 6px 16px;
+            border-radius: 100px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.3;
+            color: var(--portal-text-main);
+        }
+
+        .header p {
+            color: var(--portal-text-muted);
+            font-size: 0.875rem;
+            margin-top: 8px;
+            font-weight: 300;
+        }
+
+        /* ========================================
+           Rules Section
+           ======================================== */
+        .rules-section {
+            background: var(--portal-surface-solid);
+            border: 1px solid var(--portal-border);
+            border-radius: var(--portal-radius-md);
+            padding: 24px;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rules-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--portal-primary);
+            border-radius: 0 3px 3px 0;
+        }
+
+        .rules-section h3 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 16px;
+            color: var(--portal-primary);
+            letter-spacing: 0.02em;
+        }
+
+        .rules-section ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+            color: var(--portal-text-muted);
+            font-size: 0.825rem;
+            line-height: 1.75;
+        }
+
+        .rules-section ul li {
+            margin-bottom: 4px;
+        }
+
+        .rules-section ul li::marker {
+            color: var(--portal-text-dim);
+        }
+
+        /* ========================================
+           Warning
+           ======================================== */
+        .warning {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--portal-danger);
+            font-size: 0.75rem;
+            text-align: center;
+            margin-bottom: 24px;
+            font-weight: 600;
+            background: var(--portal-danger-bg);
+            padding: 12px 16px;
+            border-radius: var(--portal-radius-sm);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            letter-spacing: 0.02em;
+        }
+
+        .warning-icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        /* ========================================
+           Action Button
+           ======================================== */
+        .action-btn {
+            background: var(--portal-primary);
+            color: var(--portal-text-main);
+            border: none;
+            border-radius: 100px;
+            padding: 16px 32px;
+            width: 100%;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--portal-transition);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.02em;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .action-btn:hover {
+            background-color: var(--portal-primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(239, 68, 68, 0.3);
+        }
+
+        .action-btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+        }
+
+        .action-btn:disabled {
+            background-color: var(--portal-border);
+            color: var(--portal-text-dim);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .action-btn:disabled::before {
+            display: none;
+        }
+
+        /* ========================================
+           Footer Watermark
+           ======================================== */
+        .portal-footer {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--portal-border);
+        }
+
+        .portal-footer-brand {
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            color: var(--portal-text-main);
+        }
+
+        .portal-footer-brand span {
+            color: var(--portal-primary);
+        }
+
+        .portal-footer p {
+            font-size: 0.7rem;
+            color: var(--portal-text-dim);
+            margin-top: 4px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ========================================
+           Custom Toast Component
+           ======================================== */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            pointer-events: none;
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            border-radius: var(--portal-radius-sm);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            pointer-events: auto;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            animation: toastIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateX(40px);
+            max-width: 360px;
+        }
+
+        .toast.toast-success {
+            background: var(--portal-success-bg);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: var(--portal-success);
+        }
+
+        .toast.toast-error {
+            background: var(--portal-danger-bg);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: var(--portal-danger);
+        }
+
+        .toast.toast-info {
+            background: var(--portal-surface);
+            border: 1px solid var(--portal-border);
+            color: var(--portal-text-main);
+        }
+
+        .toast-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .toast.toast-out {
+            animation: toastOut 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+        }
+
+        @keyframes toastIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes toastOut {
+            to {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+        }
+
+        /* ========================================
+           Responsive
+           ======================================== */
+        @media (max-width: 480px) {
+            .portal-container {
+                padding: 32px 24px 28px;
+                border-radius: var(--portal-radius-md);
+            }
+
+            .header h1 {
+                font-size: 1.25rem;
+            }
+
+            .rules-section {
+                padding: 20px;
+            }
+
+            .toast-container {
+                top: 12px;
+                right: 12px;
+                left: 12px;
+            }
+
+            .toast {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="portal-container">
+        <!-- Logo -->
+        <div class="portal-logo">
+            <img src="logo.png" alt="AFB Builder">
+        </div>
+
+        <div class="header">
+            <div class="header-badge">Protocole d'Integration</div>
+            <h1>Portail d'Acces Securise</h1>
+            <p>Programme AI Fullstack Builder</p>
+        </div>
+
+        <div class="rules-section">
+            <h3>Verification d'identite requise</h3>
+            <ul>
+                <li>L'acces au reseau est soumis a l'approbation stricte des administrateurs.</li>
+                <li>Votre demande sera croisee avec la base de donnees des paiements.</li>
+                <li>Si votre numero WhatsApp ne correspond a aucune transaction valide, l'acces sera definitivement
+                    refuse.</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <svg class="warning-icon" viewBox="0 0 16 16" fill="none">
+                <path d="M8 1L1 14h14L8 1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M8 6v4M8 12h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Le partage de ce fichier entrainera un bannissement immediat du reseau.
+        </div>
+
+        <button id="joinBtn" class="action-btn">Demander l'acces au reseau</button>
+
+        <div class="portal-footer">
+            <div class="portal-footer-brand">AFB<span>Builder</span></div>
+            <p>Kevy -- Tous droits reserves</p>
+        </div>
+    </div>
+
+    <script>
+        /* ========================================
+           Toast Component
+           ======================================== */
+        function showToast(message, type) {
+            var container = document.getElementById('toastContainer');
+            var toast = document.createElement('div');
+            toast.className = 'toast toast-' + type;
+
+            var iconSvg = '';
+            if (type === 'success') {
+                iconSvg = '<svg class="toast-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>';
+            } else if (type === 'error') {
+                iconSvg = '<svg class="toast-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>';
+            } else {
+                iconSvg = '<svg class="toast-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>';
+            }
+
+            toast.innerHTML = iconSvg + '<span>' + message + '</span>';
+            container.appendChild(toast);
+
+            setTimeout(function() {
+                toast.classList.add('toast-out');
+                setTimeout(function() {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        /* ========================================
+           Logique d'acces - NE PAS MODIFIER
+           ======================================== */
+        // Lien chiffré en Base64 pour des raisons de sécurité
+        const encodedTarget = "aHR0cHM6Ly9jaGF0LndoYXRzYXBwLmNvbS9JaGlWQjlVYllsZENzRmFyQVFibHd5";
+        const btn = document.getElementById('joinBtn');
+
+        btn.addEventListener('click', function () {
+            try {
+                const targetUrl = atob(encodedTarget);
+                window.open(targetUrl, '_blank');
+
+                // Modification de l'UI pour confirmer l'action sans utiliser d'alert intrusive
+                btn.disabled = true;
+                btn.innerText = "Demande en cours d'examen...";
+
+                showToast("Redirection vers le canal de verification...", "success");
+            } catch (e) {
+                console.error("Erreur critique d'intégration lors du décodage de l'accès.");
+                showToast("Une erreur est survenue. Veuillez reessayer.", "error");
+            }
+        });
+    </script>
+</body>
+
+</html>
