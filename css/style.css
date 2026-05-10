@@ -962,6 +962,53 @@ a {
     }
 }
 
+/* Legal Content Pages */
+.legal-content {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 48px;
+}
+
+.legal-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 32px 0 16px;
+    color: var(--primary);
+}
+
+.legal-content h3:first-child {
+    margin-top: 0;
+}
+
+.legal-content p {
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    line-height: 1.8;
+}
+
+.legal-content ul {
+    list-style: none;
+    margin-bottom: 24px;
+}
+
+.legal-content ul li {
+    position: relative;
+    padding-left: 24px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.legal-content ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: 900;
+}
+
 /* Toast System Styles */
 .toast-container {
     position: fixed;
