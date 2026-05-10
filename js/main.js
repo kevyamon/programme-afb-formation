@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize Scroll to Top button
     initScrollToTop();
+
+    // Initialize Hero Title Animation
+    initHeroTitleAnimation();
 });
 
 /**
@@ -117,3 +120,56 @@ window.showToast = function(message, type = 'info') {
         setTimeout(() => toast.remove(), 400);
     }, 4000);
 };
+
+/**
+ * Hero Title Sequential Animation
+ * Words L->R, then highlight R->L, then stabilize.
+ * Repeats every 10 minutes.
+ */
+function initHeroTitleAnimation() {
+    const words = document.querySelectorAll('.hero-title .word');
+    if (words.length === 0) return;
+
+    function runSequence() {
+        // Step 1: Reset to hidden
+        words.forEach(word => {
+            word.style.opacity = '0';
+            word.style.transform = 'translateY(20px)';
+            word.style.textShadow = 'none';
+            word.style.color = '';
+        });
+
+        // Step 2: Left to Right appearance
+        words.forEach((word, i) => {
+            setTimeout(() => {
+                word.style.opacity = '1';
+                word.style.transform = 'translateY(0)';
+            }, i * 400);
+        });
+
+        // Step 3: Right to Left pulse highlight
+        const totalAppearTime = words.length * 400;
+        setTimeout(() => {
+            const reversedWords = Array.from(words).reverse();
+            reversedWords.forEach((word, i) => {
+                setTimeout(() => {
+                    word.style.color = '#fff';
+                    word.style.textShadow = '0 0 25px rgba(239, 68, 68, 0.8)';
+                    
+                    // Brief highlight then return to normal
+                    setTimeout(() => {
+                        word.style.color = '';
+                        word.style.textShadow = '';
+                    }, 500);
+                }, i * 300);
+            });
+        }, totalAppearTime + 600);
+
+        // Step 4: Stabilize and set long-term timer (10 minutes)
+        // The final state (opacity 1, transform 0) remains visible.
+        setTimeout(runSequence, 600000); 
+    }
+
+    // Start immediately
+    runSequence();
+}
